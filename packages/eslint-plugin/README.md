@@ -29,7 +29,7 @@ yarn add --dev @rhangai/eslint-plugin \
 module.export = {
 	root: true,
 	plugins: ['@rhangai'],
-	extends: ['@rhangai:vue-typescript'],
+	extends: ['plugin:@rhangai/vue-typescript'],
 	parserOptions: {
 		project: 'tsconfig.json'
 	}
