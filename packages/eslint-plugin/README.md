@@ -3,7 +3,7 @@
 Typescript:
 
 ```sh
-yarn add --dev @honestdev/eslint-config \
+yarn add --dev @rhangai/eslint-plugin \
 	eslint-config-airbnb-typescript \
 	eslint-config-prettier \
 	eslint-plugin-import \
@@ -15,7 +15,7 @@ yarn add --dev @honestdev/eslint-config \
 ### `vue-typescript`
 
 ```sh
-yarn add --dev @honestdev/eslint-config \
+yarn add --dev @rhangai/eslint-plugin \
 	eslint-config-airbnb-typescript \
 	eslint-config-prettier \
 	eslint-plugin-import \
@@ -28,7 +28,8 @@ yarn add --dev @honestdev/eslint-config \
 ```js
 module.export = {
 	root: true,
-	extends: ['@honestdev/eslint-config/vue-typescript'],
+	plugins: ['@rhangai'],
+	extends: ['@rhangai:vue-typescript'],
 	parserOptions: {
 		project: 'tsconfig.json'
 	}
