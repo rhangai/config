@@ -5,7 +5,7 @@ module.exports = {
 		'lines-between-class-members': [
 			'error',
 			'always',
-			{ exceptAfterSingleLine: true },
+			{ exceptAfterSingleLine: true }
 		],
 		'max-classes-per-file': 'off',
 		'no-await-in-loop': 'off',
@@ -23,10 +23,10 @@ module.exports = {
 				pathGroups: [
 					{
 						pattern: '~/**',
-						group: 'parent',
-					},
-				],
-			},
+						group: 'parent'
+					}
+				]
+			}
 		],
 		'import/no-extraneous-dependencies': [
 			'error',
@@ -35,11 +35,11 @@ module.exports = {
 					'**/*.test.{js,ts}',
 					'**/*.spec.{js,ts}',
 					'**/*.stories.{js,ts}',
-					'**/test/**/*.{js,ts}',
-				],
-			},
+					'**/test/**/*.{js,ts}'
+				]
+			}
 		],
-		'prettier/prettier': 'error',
+		'prettier/prettier': 'error'
 	},
 	javascript: {
 		'no-unused-expressions': ['error', { allowTernary: true }],
@@ -50,14 +50,14 @@ module.exports = {
 		'no-unused-vars': [
 			'warn',
 			{
-				argsIgnorePattern: '^_',
-			},
-		],
+				argsIgnorePattern: '^_'
+			}
+		]
 	},
 	typescript: {
 		'@typescript-eslint/no-unused-expressions': [
 			'error',
-			{ allowTernary: true },
+			{ allowTernary: true }
 		],
 		'@typescript-eslint/interface-name-prefix': 'off',
 		'@typescript-eslint/explicit-function-return-type': 'off',
@@ -66,9 +66,9 @@ module.exports = {
 		'@typescript-eslint/no-unused-vars': [
 			'warn',
 			{
-				argsIgnorePattern: '^_',
-			},
-		],
+				argsIgnorePattern: '^_'
+			}
+		]
 	},
-	vue: {},
+	vue: {}
 };
