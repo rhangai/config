@@ -1,0 +1,16 @@
+{
+  "name": "@rhangai/eslint-config",
+  "version": "0.0.7",
+  "description": "Configuração do eslint pessoal",
+  "main": "index.js",
+  "repository": "git@bitbucket.org:honestdev/eslint-config.git",
+  "author": "renanhangai <hangai.renan@gmail.com>",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "standard-version": "^7.1.0"
+  },
+  "scripts": {
+    "release": "standard-version"
+  }
+}
