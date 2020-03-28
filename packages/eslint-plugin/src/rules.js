@@ -32,6 +32,9 @@ module.exports = {
 			'error',
 			{
 				devDependencies: [
+					'**/rollup.config.{ts,js}',
+					'**/webpack.config.{ts,js}',
+					'**/nuxt.config.{ts,js}',
 					'**/*.test.{js,ts}',
 					'**/*.spec.{js,ts}',
 					'**/*.stories.{js,ts}',
