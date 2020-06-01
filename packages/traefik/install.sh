@@ -1,7 +1,6 @@
 #!/bin/bash
 
-set -e
-
+set -echo
 TMP_PATH=/tmp/traefik-install
 TRAEFIK_IMAGE=https://github.com/containous/traefik/releases/download/v2.2.1/traefik_v2.2.1_linux_amd64.tar.gz
 TRAEFIK_CONFIG_URL_BASE=https://raw.githubusercontent.com/rhangai/config/master/packages/traefik
@@ -32,7 +31,7 @@ fi
 if [ "$INSTALL_TRAEFIK" = "1" ]; then
 	rm -rf ./traefik.tar.gz ./traefik
 	echo "Downloading traefik"
-	curl -L "$TRAEFIK_IMAGE" -o traefik.tar.gz
+	curl -fL "$TRAEFIK_IMAGE" -o traefik.tar.gz
 	mkdir -p ./traefik
 	tar xvf traefik.tar.gz -C traefik
 	sudo mv traefik/traefik /usr/local/bin/traefik
@@ -67,7 +66,7 @@ if [ "$INSTALL_TRAEFIK_TOML" = "1" ]; then
 		TRAEFIK_CONFIG_URL="$TRAEFIK_CONFIG_URL_BASE/traefik.dev.toml"
 		echo "Downloading traefik.dev.toml"
 	fi
-	curl -L "$TRAEFIK_CONFIG_URL" -o traefik.toml
+	curl -fL "$TRAEFIK_CONFIG_URL" -o traefik.toml
 	echo "Installing traefik.toml on $TRAEFIK_CONFIG_TOML_PATH"
 	sudo -k mv ./traefik.toml "$TRAEFIK_CONFIG_TOML_PATH"
 	echo "Traefik installed"
@@ -96,11 +95,17 @@ fi
 if [ "$INSTALL_TRAEFIK_SERVICE" = "1" ]; then
 	rm -f ./traefik.service
 	echo "Downloading traefik.service"
-	curl -L "$TRAEFIK_CONFIG_URL_BASE/traefik.service" -o traefik.service
+	curl -fL "$TRAEFIK_CONFIG_URL_BASE/traefik.service" -o traefik.service
 	echo "Installing traefik.service on $TRAEFIK_CONFIG_SYSTEMD_PATH"
-	sudo -k mv ./traefik.service "$TRAEFIK_CONFIG_SYSTEMD_PATH"
-	systemctl daemon-reload
+	sudo -k mv ./traefik.service "$TRAEFIK_CONFIG_SYSTEMD_PATH" 
+	sudo systemctl daemon-reload
 	echo "Traefik systemd installed"
-	echo "Don't forget to enable the traefik service using:\n systemctl enable traefik\n systemctl start traefik"
+	echo ""
+	echo "=================================================="
+	echo "|  Don't forget to enable the traefik service using:"
+	echo "|"
+	echo "|      systemctl enable traefik   # Enable traefik on startup"
+	echo "|      systemctl start traefik    # Start traefik service"
+	echo "=================================================="
 fi
-echo -e "\n\n"
+echo ""
