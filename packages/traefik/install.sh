@@ -68,6 +68,7 @@ if [ "$INSTALL_TRAEFIK_TOML" = "1" ]; then
 	fi
 	curl -fL "$TRAEFIK_CONFIG_URL" -o traefik.toml
 	echo "Installing traefik.toml on $TRAEFIK_CONFIG_TOML_PATH"
+	mkdir -p $(dirname "$TRAEFIK_CONFIG_TOML_PATH")
 	sudo -k mv ./traefik.toml "$TRAEFIK_CONFIG_TOML_PATH"
 	echo "Traefik installed"
 fi
