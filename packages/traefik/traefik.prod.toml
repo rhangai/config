@@ -155,8 +155,8 @@
 # File configuration backend
 ################################################################
 
-# [providers.file]
-#   filename = "/etc/traefik/config.toml"
+[providers.file]
+  filename = "/etc/traefik/config.toml"
 
 
 ################################################################

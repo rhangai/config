@@ -57,20 +57,32 @@ if [ -f "$TRAEFIK_CONFIG_TOML_PATH" ]; then
 	fi
 fi
 if [ "$INSTALL_TRAEFIK_TOML" = "1" ]; then
-	rm -f ./traefik.toml
+	rm -f ./traefik.toml ./config.toml
+	# Checking config dir 
+	TRAEFIK_CONFIG_TOML_DIR=$(dirname "$TRAEFIK_CONFIG_TOML_PATH")
+	mkdir -p "$TRAEFIK_CONFIG_TOML_DIR"
+
+	# Checking mode
 	read -p "Are you in production? [y/N]: "
 	if [[ "$REPLY" =~ ^[Yy]$ ]]; then
 		TRAEFIK_CONFIG_URL="$TRAEFIK_CONFIG_URL_BASE/traefik.prod.toml"
 		echo "Downloading traefik.prod.toml"
+		sudo touch "$TRAEFIK_CONFIG_TOML_DIR/acme.json"
+		sudo chmod 0600 "$TRAEFIK_CONFIG_TOML_DIR/acme.json"
 	else
 		TRAEFIK_CONFIG_URL="$TRAEFIK_CONFIG_URL_BASE/traefik.dev.toml"
 		echo "Downloading traefik.dev.toml"
 	fi
+
 	curl -fL "$TRAEFIK_CONFIG_URL" -o traefik.toml
 	echo "Installing traefik.toml on $TRAEFIK_CONFIG_TOML_PATH"
-	mkdir -p $(dirname "$TRAEFIK_CONFIG_TOML_PATH")
-	sudo -k mv ./traefik.toml "$TRAEFIK_CONFIG_TOML_PATH"
-	echo "Traefik installed"
+	sudo mv ./traefik.toml "$TRAEFIK_CONFIG_TOML_PATH"
+
+	curl -fL "$TRAEFIK_CONFIG_URL_BASE/config.toml" -o config.toml
+	echo "Installing config.toml on $TRAEFIK_CONFIG_TOML_DIR"
+	sudo mv ./config.toml "$TRAEFIK_CONFIG_TOML_DIR/config.toml"
+
+	echo "Traefik config installed"
 fi
 echo ""
 
@@ -98,7 +110,7 @@ if [ "$INSTALL_TRAEFIK_SERVICE" = "1" ]; then
 	echo "Downloading traefik.service"
 	curl -fL "$TRAEFIK_CONFIG_URL_BASE/traefik.service" -o traefik.service
 	echo "Installing traefik.service on $TRAEFIK_CONFIG_SYSTEMD_PATH"
-	sudo -k mv ./traefik.service "$TRAEFIK_CONFIG_SYSTEMD_PATH" 
+	sudo mv ./traefik.service "$TRAEFIK_CONFIG_SYSTEMD_PATH" 
 	sudo systemctl daemon-reload
 	echo "Traefik systemd installed"
 	echo ""
