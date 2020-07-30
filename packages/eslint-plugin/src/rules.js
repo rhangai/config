@@ -58,6 +58,7 @@ module.exports = {
 		],
 	},
 	typescript: {
+		'@typescript-eslint/no-floating-promises': 'error',
 		'@typescript-eslint/no-unused-expressions': [
 			'error',
 			{ allowTernary: true },
