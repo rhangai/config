@@ -26,7 +26,7 @@ yarn add --dev @rhangai/eslint-plugin \
 ```
 
 ```js
-module.export = {
+module.exports = {
 	root: true,
 	plugins: ['@rhangai'],
 	extends: ['plugin:@rhangai/vue-typescript'],
