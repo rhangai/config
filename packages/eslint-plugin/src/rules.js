@@ -75,6 +75,6 @@ module.exports = {
 		],
 	},
 	vue: {
-		'vue/html-indent': ['warning', 'tab'],
+		'vue/html-indent': ['warn', 'tab'],
 	},
 };
