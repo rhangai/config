@@ -1,6 +1,6 @@
 {
   "name": "@rhangai/eslint-plugin",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "ESLint plugin for my personal configurations",
   "main": "index.js",
   "repository": "https://github.com/rhangai/config/tree/master/packages/eslint-plugin",
