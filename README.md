@@ -1,5 +1,25 @@
-# Install traefik
+# Install
+
+```
+git clone https://github.com/rhangai/config
+cd config
+```
+
+## Traefik
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/rhangai/config/main/traefik/install.sh | bash
+./traefik/install.sh
+```
+
+# Install zsh
+
+```sh
+./zsh/install.sh
+```
+
+Edit `.zshrc`
+
+```zsh
+ZSH_THEME="rhangai"
+plugins=(git gitfast docker docker-compose yarn zsh-syntax-highlighting)
 ```

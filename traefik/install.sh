@@ -1,16 +1,11 @@
-#!/bin/bash
+#!/bin/bash -e
 
-set -e
+# Muda para a pasta do script
+cd $(dirname $0)
 
-TMP_PATH=/tmp/traefik-install
 TRAEFIK_IMAGE=https://github.com/traefik/traefik/releases/download/v2.4.7/traefik_v2.4.7_linux_amd64.tar.gz
-TRAEFIK_CONFIG_URL_BASE=https://raw.githubusercontent.com/rhangai/config/main/traefik
 TRAEFIK_CONFIG_TOML_PATH=/etc/traefik/traefik.toml
 TRAEFIK_CONFIG_SYSTEMD_PATH=/etc/systemd/system/traefik.service
-
-
-mkdir -p "$TMP_PATH"
-cd "$TMP_PATH"
 
 #===============================
 # Install traefik binary
@@ -66,22 +61,19 @@ if [ "$INSTALL_TRAEFIK_TOML" = "1" ]; then
 	# Checking mode
 	read -p "Are you in production? [y/N]: "
 	if [[ "$REPLY" =~ ^[Yy]$ ]]; then
-		TRAEFIK_CONFIG_URL="$TRAEFIK_CONFIG_URL_BASE/traefik.prod.toml"
-		echo "Downloading traefik.prod.toml"
+		TRAEFIK_CONFIG_TOML_PATH_LOCAL="traefik.prod.toml"
+		echo "Creating production"
 		sudo touch "$TRAEFIK_CONFIG_TOML_DIR/acme.json"
 		sudo chmod 0600 "$TRAEFIK_CONFIG_TOML_DIR/acme.json"
 	else
-		TRAEFIK_CONFIG_URL="$TRAEFIK_CONFIG_URL_BASE/traefik.dev.toml"
-		echo "Downloading traefik.dev.toml"
+		TRAEFIK_CONFIG_TOML_PATH_LOCAL="traefik.dev.toml"
 	fi
 
-	curl -fL "$TRAEFIK_CONFIG_URL" -o traefik.toml
 	echo "Installing traefik.toml on $TRAEFIK_CONFIG_TOML_PATH"
-	sudo mv ./traefik.toml "$TRAEFIK_CONFIG_TOML_PATH"
+	sudo cp "$TRAEFIK_CONFIG_TOML_PATH_LOCAL" "$TRAEFIK_CONFIG_TOML_PATH"
 
-	curl -fL "$TRAEFIK_CONFIG_URL_BASE/config.toml" -o config.toml
 	echo "Installing config.toml on $TRAEFIK_CONFIG_TOML_DIR"
-	sudo mv ./config.toml "$TRAEFIK_CONFIG_TOML_DIR/config.toml"
+	sudo cp config.toml "$TRAEFIK_CONFIG_TOML_DIR/config.toml"
 
 	echo "Traefik config installed"
 fi
@@ -108,10 +100,8 @@ if [ -d "/etc/systemd" ]; then
 fi
 if [ "$INSTALL_TRAEFIK_SERVICE" = "1" ]; then
 	rm -f ./traefik.service
-	echo "Downloading traefik.service"
-	curl -fL "$TRAEFIK_CONFIG_URL_BASE/traefik.service" -o traefik.service
 	echo "Installing traefik.service on $TRAEFIK_CONFIG_SYSTEMD_PATH"
-	sudo mv ./traefik.service "$TRAEFIK_CONFIG_SYSTEMD_PATH" 
+	sudo cp traefik.service "$TRAEFIK_CONFIG_SYSTEMD_PATH" 
 	sudo systemctl daemon-reload
 	echo "Traefik systemd installed"
 	echo ""
