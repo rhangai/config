@@ -3,8 +3,8 @@
 set -e
 
 TMP_PATH=/tmp/traefik-install
-TRAEFIK_IMAGE=https://github.com/traefik/traefik/releases/download/v2.3.1/traefik_v2.3.1_linux_amd64.tar.gz
-TRAEFIK_CONFIG_URL_BASE=https://raw.githubusercontent.com/rhangai/config/master/packages/traefik
+TRAEFIK_IMAGE=https://github.com/traefik/traefik/releases/download/v2.4.7/traefik_v2.4.7_linux_amd64.tar.gz
+TRAEFIK_CONFIG_URL_BASE=https://raw.githubusercontent.com/rhangai/config/main/traefik
 TRAEFIK_CONFIG_TOML_PATH=/etc/traefik/traefik.toml
 TRAEFIK_CONFIG_SYSTEMD_PATH=/etc/systemd/system/traefik.service
 
