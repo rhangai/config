@@ -8,6 +8,7 @@ cd $(dirname $0)
 if [ ! -x "$(command -v zsh)" ]; then
 	read -p "Install zsh? [y/N]: "
 	if [[ "$REPLY" =~ ^[Yy]$ ]]; then
+		sudo apt-get update
 		sudo apt install zsh
 	fi
 fi
