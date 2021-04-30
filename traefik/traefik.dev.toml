@@ -25,7 +25,9 @@
   [entryPoints.web]
     address = ":80"
   [entryPoints.websecure]
-    address = ":443"
+    address = ":443"    
+    [entryPoints.websecure.http.tls]
+      certResolver = "local-resolver"
 
 ################################################################
 # Traefik logs configuration
@@ -157,3 +159,14 @@
 
 [providers.file]
   filename = "/etc/traefik/config.toml"
+
+################################################################
+# Acme certificate
+################################################################
+
+[certificatesResolvers.local-resolver.acme]
+  email = "dev@localhost"
+  storage = "/etc/traefik/acme.json"
+  caServer = "https://localhost:8433/acme/acme/directory"
+  [certificatesResolvers.local-resolver.acme.httpChallenge]
+    entrypoint = "web"

@@ -1,0 +1,12 @@
+[Unit]
+Description=StepCA (ACME Server)
+StartLimitIntervalSec=0
+
+[Service]
+ExecStart=step-ca /etc/traefik/step/ca.json
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
+WantedBy=traefik.service
