@@ -1,0 +1,46 @@
+version: '3.7'
+services:
+  traefik:
+    image: traefik:v2.4
+    ports:
+      - 80:80
+      - 443:443
+      #- 8080:8080
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - traefik.enable=true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - traefik-public-certificates:/certificates
+    command:
+      - --providers.docker
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.swarmmode
+      - --providers.docker.network=traefik
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --entrypoints.websecure.http.tls.certResolver=le
+      - --entrypoints.web.http.redirections.entryPoint.to=websecure
+      - --entrypoints.web.http.redirections.entryPoint.scheme=https
+      - --entrypoints.web.http.redirections.entrypoint.permanent=true
+      - --certificatesresolvers.le.acme.storage=/certificates/acme.json
+      - --certificatesresolvers.le.acme.tlschallenge=true
+      - --accesslog
+      - --log
+      - --api
+      #- --api.insecure
+      #- --certificatesresolvers.le.acme.email=email@email.com
+      #- --certificatesresolvers.le.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory
+    networks:
+      - traefik
+
+volumes:
+  traefik-public-certificates:
+
+networks:
+  traefik:
+    name: traefik
+    driver: overlay
