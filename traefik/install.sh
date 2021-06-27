@@ -67,7 +67,6 @@ if [ "$INSTALL_TRAEFIK_TOML" = "1" ]; then
 	sudo mkdir -p "$TRAEFIK_CONFIG_TOML_DIR"
 
 	# Checking mode
-	read -p "Are you in production? [y/N]: "
 	if [ "$TRAEFIK_DEVELOPMENT" = "1" ]; then
 		TRAEFIK_CONFIG_TOML_PATH_LOCAL="traefik.dev.toml"
 	else
@@ -151,7 +150,7 @@ if [ "$TRAEFIK_DEVELOPMENT" = "1" ]; then
 		pushd /etc/traefik/certs
 		sudo openssl genrsa -out root.pem 4096
 		sudo openssl req -x509 -new -nodes -key root.pem -sha256 -days 9999 -out root.crt -subj "/C=US/ST=CA/O=localhost/CN=localhost"
-		sudo rm /usr/local/share/ca-certificates/root-localhost.crt
+		sudo rm -f /usr/local/share/ca-certificates/root-localhost.crt
 		sudo ln -s root.crt /usr/local/share/ca-certificates/root-localhost.crt
 		sudo update-ca-certificates
 		popd
