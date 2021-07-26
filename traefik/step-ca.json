@@ -1,0 +1,19 @@
+{
+	"root": "/etc/traefik/certs/root.crt",
+	"crt": "/etc/traefik/certs/root.crt",
+	"key": "/etc/traefik/certs/root.pem",
+	"address": ":8433",
+	"dnsNames": ["localhost"],
+	"db": {
+		"type": "badger",
+		"dataSource": "/etc/traefik/step/db"
+	},
+	"authority": {
+		"provisioners": [
+			{
+				"type": "ACME",
+				"name": "traefik"
+			}
+		]
+	}
+}

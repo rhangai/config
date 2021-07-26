@@ -143,6 +143,14 @@ if [ "$TRAEFIK_DEVELOPMENT" = "1" ]; then
 		echo "StepCA installed"
 	fi
 
+
+
+	if [ ! -f "/etc/traefik/step/ca.json" ]; then
+		echo "Copying configuration"
+		sudo mkdir -p /etc/traefik/step
+		sudo cp setep-ca.json /etc/traefik/step/ca.json
+	fi
+
 	if [ ! -f "/etc/traefik/certs/root.pem" ]; then
 		echo "Generating certificates"
 		sudo mkdir -p /etc/traefik/certs /etc/traefik/step
@@ -151,7 +159,7 @@ if [ "$TRAEFIK_DEVELOPMENT" = "1" ]; then
 		sudo openssl genrsa -out root.pem 4096
 		sudo openssl req -x509 -new -nodes -key root.pem -sha256 -days 9999 -out root.crt -subj "/C=US/ST=CA/O=localhost/CN=localhost"
 		sudo rm -f /usr/local/share/ca-certificates/root-localhost.crt
-		sudo ln -s root.crt /usr/local/share/ca-certificates/root-localhost.crt
+		sudo ln -s /etc/traefik/certs/root.crt /usr/local/share/ca-certificates/root-localhost.crt
 		sudo update-ca-certificates
 		popd
 	fi

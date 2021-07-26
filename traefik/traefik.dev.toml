@@ -167,6 +167,6 @@
 [certificatesResolvers.local-resolver.acme]
   email = "dev@localhost"
   storage = "/etc/traefik/acme.json"
-  caServer = "https://localhost:8433/acme/acme/directory"
+  caServer = "https://localhost:8433/acme/traefik/directory"
   [certificatesResolvers.local-resolver.acme.httpChallenge]
     entrypoint = "web"
