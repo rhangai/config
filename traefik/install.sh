@@ -148,7 +148,7 @@ if [ "$TRAEFIK_DEVELOPMENT" = "1" ]; then
 	if [ ! -f "/etc/traefik/step/ca.json" ]; then
 		echo "Copying configuration"
 		sudo mkdir -p /etc/traefik/step
-		sudo cp setep-ca.json /etc/traefik/step/ca.json
+		sudo cp step-ca.json /etc/traefik/step/ca.json
 	fi
 
 	if [ ! -f "/etc/traefik/certs/root.pem" ]; then
