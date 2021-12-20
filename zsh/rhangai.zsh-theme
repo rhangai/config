@@ -3,6 +3,7 @@ source "$ZSH/themes/bira.zsh-theme"
 ZSH_THEME_GIT_PROMPT_AHEAD_REMOTE="%{↑%G%}"
 ZSH_THEME_GIT_PROMPT_BEHIND_REMOTE="%{↓%G%}"
 ZSH_THEME_GIT_PROMPT_EQUAL_REMOTE="%{$fg_bold[green]%}%{✔%{$fg_no_bold[yellow]%}%G%}"
+ZSH_THEME_GIT_PROMPT_DIRTY="*"
 
 function git_prompt_info() {
 	local current_branch=$(git_current_branch)
