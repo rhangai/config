@@ -1,3 +1,9 @@
 [http.middlewares]
   [http.middlewares.redirect-https.headers]
     sslRedirect = true
+  [http.middlewares.cors.headers]
+    accessControlAllowMethods = "GET,OPTIONS,PUT"
+    accessControlAllowOriginListRegex = ".*"
+    accessControlAllowHeaders = ["content-type", "x-auth-userinfo"]
+    accessControlMaxAge = 100
+    addVaryHeader = true
