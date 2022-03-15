@@ -158,9 +158,14 @@ if [ "$TRAEFIK_DEVELOPMENT" = "1" ]; then
 		pushd /etc/traefik/certs
 		sudo openssl genrsa -out root.pem 4096
 		sudo openssl req -x509 -new -nodes -key root.pem -sha256 -days 9999 -out root.crt -subj "/C=US/ST=CA/O=localhost/CN=localhost"
-		sudo rm -f /usr/local/share/ca-certificates/root-localhost.crt
-		sudo ln -s /etc/traefik/certs/root.crt /usr/local/share/ca-certificates/root-localhost.crt
-		sudo update-ca-certificates
+
+		if command -v trust &> /dev/null; then
+			sudo trust anchor --store /etc/traefik/certs/root.crt
+		elif command -v update-ca-certificates &> /dev/null; then
+			sudo rm -f /usr/local/share/ca-certificates/root-localhost.crt
+			sudo ln -s /etc/traefik/certs/root.crt /usr/local/share/ca-certificates/root-localhost.crt
+			sudo update-ca-certificates
+		fi
 		popd
 	fi
 	echo ""
