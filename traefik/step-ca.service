@@ -3,7 +3,7 @@ Description=StepCA (ACME Server)
 StartLimitIntervalSec=0
 
 [Service]
-ExecStart=step-ca /etc/traefik/step/ca.json
+ExecStart=/usr/local/bin/step-ca /etc/traefik/step/ca.json
 Restart=always
 RestartSec=5s
 

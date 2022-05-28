@@ -1,4 +1,6 @@
-#!/bin/bash -e
+#!/bin/bash
+
+set -e
 
 # Muda para a pasta do script
 cd $(dirname $0)
@@ -112,6 +114,11 @@ if [ "$INSTALL_TRAEFIK_SERVICE" = "1" ]; then
 	sudo cp traefik.service "$TRAEFIK_CONFIG_SYSTEMD_DIR/traefik.service" 
 	sudo systemctl daemon-reload
 	echo "Traefik systemd installed"
+	
+	if [ -x "$(command -v chcon)" ]; then 
+		echo "Setting SELinux permissions"
+		sudo chcon -t bin_t /usr/local/bin/traefik
+	fi
 fi
 echo ""
 
@@ -193,6 +200,10 @@ if [ "$TRAEFIK_DEVELOPMENT" = "1" ]; then
 		sudo cp step-ca.service "$TRAEFIK_CONFIG_SYSTEMD_DIR/step-ca.service" 
 		sudo systemctl daemon-reload
 		echo "step-ca systemd installed"
+		if [ -x "$(command -v chcon)" ]; then 
+			echo "Setting SELinux permissions"
+			sudo chcon -t bin_t /usr/local/bin/step-ca
+		fi
 	fi
 fi
 
