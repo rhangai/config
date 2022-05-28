@@ -51,3 +51,37 @@ https://flathub.org/apps/details/com.visualstudio.code
 https://flathub.org/apps/details/com.skype.Client
 https://flathub.org/apps/details/org.gimp.GIMP
 
+## Utilitários
+
+### exa
+
+Alternativa para ll, ls, lt, l
+```sh
+alias ls='exa'
+alias ll='exa -lhagF --git'
+alias l='exa -lhagF --git'
+alias lt='exa -lhagFT --level=2'
+```
+
+### bat
+
+Alternativa para cat
+```sh
+bat arquivo
+```
+
+### ncdu
+
+Alternativa para du
+```
+ncdu pasta
+```
+
+### diff-so-fancy
+
+```sh
+npm install -g diff-so-fancy
+```
+
+https://github.com/so-fancy/diff-so-fancy
+
