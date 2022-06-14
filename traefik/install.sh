@@ -114,11 +114,6 @@ if [ "$INSTALL_TRAEFIK_SERVICE" = "1" ]; then
 	sudo cp traefik.service "$TRAEFIK_CONFIG_SYSTEMD_DIR/traefik.service" 
 	sudo systemctl daemon-reload
 	echo "Traefik systemd installed"
-	
-	if [ -x "$(command -v chcon)" ]; then 
-		echo "Setting SELinux permissions"
-		sudo chcon -t bin_t /usr/local/bin/traefik
-	fi
 fi
 echo ""
 
@@ -200,10 +195,6 @@ if [ "$TRAEFIK_DEVELOPMENT" = "1" ]; then
 		sudo cp step-ca.service "$TRAEFIK_CONFIG_SYSTEMD_DIR/step-ca.service" 
 		sudo systemctl daemon-reload
 		echo "step-ca systemd installed"
-		if [ -x "$(command -v chcon)" ]; then 
-			echo "Setting SELinux permissions"
-			sudo chcon -t bin_t /usr/local/bin/step-ca
-		fi
 	fi
 fi
 
@@ -220,12 +211,16 @@ if [ "$INSTALL_TRAEFIK_SERVICE" = "1" ]; then
 	echo "|      systemctl enable traefik   # Enable traefik on startup"
 	echo "|      systemctl start traefik    # Start traefik service"
 	echo "|"
+	echo "|      sudo chcon -t bin_t /usr/local/bin/traefik # If on SELinux"
+	echo "|"
 fi
 if [ "$INSTALL_ACME_SERVICE" = "1" ]; then
 	echo "|  Don't forget to enable the http service using:"
 	echo "|"
 	echo "|      systemctl enable step-ca   # Enable step-ca on startup"
 	echo "|      systemctl start step-ca    # Start step-ca service"
+	echo "|"
+	echo "|      sudo chcon -t bin_t /usr/local/bin/step-ca # If on SELinux"
 	echo "|"
 fi
 echo "=================================================="
