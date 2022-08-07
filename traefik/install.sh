@@ -5,8 +5,8 @@ set -e
 # Muda para a pasta do script
 cd $(dirname $0)
 
-TRAEFIK_IMAGE=https://github.com/traefik/traefik/releases/download/v2.6.1/traefik_v2.6.1_linux_amd64.tar.gz
-TRAEFIK_ACME=https://github.com/smallstep/certificates/releases/download/v0.15.14/step-ca_linux_0.15.14_amd64.tar.gz
+TRAEFIK_IMAGE=https://github.com/traefik/traefik/releases/download/v2.8.1/traefik_v2.8.1_linux_amd64.tar.gz
+TRAEFIK_ACME=https://github.com/smallstep/certificates/releases/download/v0.21.0/step-ca_linux_0.21.0_amd64.tar.gz
 TRAEFIK_CONFIG_TOML_PATH=/etc/traefik/traefik.toml
 TRAEFIK_CONFIG_SYSTEMD_DIR=/etc/systemd/system
 
@@ -161,12 +161,12 @@ if [ "$TRAEFIK_DEVELOPMENT" = "1" ]; then
 		sudo openssl genrsa -out root.pem 4096
 		sudo openssl req -x509 -new -nodes -key root.pem -sha256 -days 9999 -out root.crt -subj "/C=US/ST=CA/O=localhost/CN=localhost"
 
-		if command -v trust &> /dev/null; then
-			sudo trust anchor --store /etc/traefik/certs/root.crt
-		elif command -v update-ca-certificates &> /dev/null; then
+		if command -v update-ca-certificates &> /dev/null; then
 			sudo rm -f /usr/local/share/ca-certificates/root-localhost.crt
 			sudo ln -s /etc/traefik/certs/root.crt /usr/local/share/ca-certificates/root-localhost.crt
 			sudo update-ca-certificates
+		elif command -v trust &> /dev/null; then
+			sudo trust anchor --store /etc/traefik/certs/root.crt
 		fi
 		popd
 	fi
