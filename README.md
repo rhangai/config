@@ -11,15 +11,7 @@ cd config
 ./traefik/install.sh
 ```
 
-# Install zsh
+## Docker
 
-```sh
-./zsh/install.sh
-```
-
-Edit `.zshrc`
-
-```zsh
-ZSH_THEME="rhangai"
-plugins=(git gitfast docker docker-compose yarn zsh-syntax-highlighting)
-```
+-   Instalar usando: https://docs.docker.com/engine/install/ubuntu/
+-   Lembrar de https://docs.docker.com/engine/install/linux-postinstall/
