@@ -7,3 +7,8 @@
     accessControlAllowHeaders = ["content-type", "x-auth-userinfo"]
     accessControlMaxAge = 100
     addVaryHeader = true
+
+  [http.middlewares.no-cache.headers]
+   [http.middlewares.no-cache.headers.CustomResponseHeaders]
+      Cache-Control = "no-cache"
+      Pragma = "no-cache"
