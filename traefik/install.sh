@@ -5,8 +5,8 @@ set -e
 # Muda para a pasta do script
 cd $(dirname $0)
 
-TRAEFIK_IMAGE=https://github.com/traefik/traefik/releases/download/v2.10.4/traefik_v2.10.4_linux_amd64.tar.gz
-TRAEFIK_ACME=https://github.com/smallstep/certificates/releases/download/v0.24.2/step-ca_linux_0.24.2_amd64.tar.gz
+TRAEFIK_IMAGE=https://github.com/traefik/traefik/releases/download/v3.0.1/traefik_v3.0.1_linux_amd64.tar.gz
+TRAEFIK_ACME=https://github.com/smallstep/certificates/releases/download/v0.26.1/step-ca_linux_0.26.1_amd64.tar.gz
 TRAEFIK_CONFIG_TOML_PATH=/etc/traefik/traefik.toml
 TRAEFIK_CONFIG_SYSTEMD_DIR=/etc/systemd/system
 
@@ -156,7 +156,7 @@ if [ "$TRAEFIK_DEVELOPMENT" = "1" ]; then
 		mkdir -p /tmp/step-ca
 		curl -fL "$TRAEFIK_ACME" -o /tmp/step-ca/step-ca.tar.gz
 		mkdir -p /tmp/step-ca/extracted-files
-		tar xvf /tmp/step-ca/step-ca.tar.gz --strip-components=1 -C /tmp/step-ca/extracted-files
+		tar xvf /tmp/step-ca/step-ca.tar.gz -C /tmp/step-ca/extracted-files
 		sudo mv /tmp/step-ca/extracted-files/step-ca /usr/local/bin/step-ca
 		echo "StepCA instalado em /usr/local/bin/step-ca"
 	fi
