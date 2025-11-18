@@ -5,7 +5,7 @@ set -e
 # Muda para a pasta do script
 cd $(dirname $0)
 
-TRAEFIK_IMAGE=https://github.com/traefik/traefik/releases/download/v3.5.3/traefik_v3.5.3_linux_amd64.tar.gz
+TRAEFIK_IMAGE=https://github.com/traefik/traefik/releases/download/v3.6.1/traefik_v3.6.1_linux_amd64.tar.gz
 TRAEFIK_ACME=https://github.com/smallstep/certificates/releases/download/v0.28.4/step-ca_linux_0.28.4_amd64.tar.gz
 TRAEFIK_CONFIG_TOML_PATH=/etc/traefik/traefik.toml
 TRAEFIK_CONFIG_SYSTEMD_DIR=/etc/systemd/system
